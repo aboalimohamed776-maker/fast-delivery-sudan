@@ -1,0 +1,5 @@
+[
+  {"name":"مطعم النيل الأزرق","image":"","state":"الخرطوم","delivery_fee":1500},
+  {"name":"مطبخ أم درمان البلدي","image":"","state":"أم درمان","delivery_fee":1200},
+  {"name":"بيت العصيدة السوداني","image":"","state":"بحري","delivery_fee":1000}
+]
