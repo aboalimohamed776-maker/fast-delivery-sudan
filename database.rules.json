@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "orders": {
+      "$orderId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "captainLocation": {
+          ".validate": "newData.hasChildren(['lat', 'lng', 'timestamp'])"
+        },
+        "status": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "captains": {
+      "$captainId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid == $captainId",
+        "location": {
+          ".validate": "newData.hasChildren(['lat', 'lng', 'timestamp'])"
+        },
+        "status": {
+          ".validate": "newData.val() == 'online' || newData.val() == 'offline'"
+        }
+      }
+    }
+  }
+}

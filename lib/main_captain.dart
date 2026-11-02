@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
-import 'app/fast_delivery_app.dart';
+import 'features/captain/captain_home_page.dart';
 
-void main() => runApp(const FastDeliveryApp(flavor: AppFlavor.captain));
+void main() => runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: CaptainHomePage()));

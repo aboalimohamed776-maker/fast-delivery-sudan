@@ -1,7 +1,7 @@
 name: fast_delivery_sudan
-description: Fast Delivery Sudan - Day 1 foundation.
+description: Fast Delivery Sudan - Day 1 and Day 2 foundation.
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -14,6 +14,8 @@ dependencies:
   firebase_auth: ^5.3.3
   cloud_firestore: ^5.5.0
   firebase_storage: ^12.3.6
+  firebase_database: ^11.1.6
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
