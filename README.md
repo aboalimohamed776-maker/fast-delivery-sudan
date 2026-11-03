@@ -1,33 +1,10 @@
-# Fast Delivery Sudan — Day 1 Foundation
+# ZoolFast - Day 3
 
-هيكل Flutter واحد بثلاثة flavors:
+ZoolFast هو مشروع Flutter واحد بثلاثة flavors: customer، captain، وadmin web. Day 3 يضيف إعادة العلامة، الدول الخمس، حفظ الدولة، نموذج أكواد السودان، نموذج عمولة الخليج 15%، ومصنع الدفع مع MyFatoorah الاختباري.
 
-- `customer`: تطبيق العميل.
-- `captain`: تطبيق الكابتن.
-- `admin`: لوحة الإدارة على الويب.
-
-## Firebase
-
-الخدمات المقررة: Firestore، Phone Authentication، Storage.
-
-1. ثبّت Flutter وFirebase CLI وFlutterFire CLI.
-2. أنشئ مشروع Firebase ثم شغّل:
-
-```bash
-firebase login
-flutterfire configure --project=<firebase-project-id>
-firebase deploy --only firestore:rules,storage
-```
-
-3. فعّل Phone provider من Firebase Console.
-4. امنح مستخدمي الإدارة custom claim باسم `admin=true`.
-5. أضف المطاعم الوهمية من `firestore/restaurants.seed.json` عبر Firebase Console أو أداة seed لاحقًا.
-
-> لا توجد مفاتيح Firebase داخل المستودع. ملف `google-services.json` و`GoogleService-Info.plist` يجب أن يبقيا محليين ومُستثنيين من Git.
+الدول المدعومة: السودان SDG، السعودية SAR، مصر EGP، الإمارات AED، وقطر QAR. السودان يستخدم أكواد الشحن والكاش/بنكك، بينما الدول الأخرى تستخدم عمولة 15% والدفع عبر MyFatoorah.
 
 ## التشغيل
-
-بعد تثبيت Flutter:
 
 ```bash
 flutter pub get
@@ -36,11 +13,10 @@ flutter run -t lib/main_captain.dart
 flutter run -d chrome -t lib/main_admin.dart
 ```
 
-## بنية البيانات
+لتجربة MyFatoorah دون تخزين المفتاح في Git:
 
-- `restaurants(name,image,state,delivery_fee)`
-- `captains(name,phone,bankak_account,bankak_name,subscription_end,debt,is_approved)`
-- `orders(to_address,fee,commission_10,phone,captain_id,status,payment_method: cash/bankak)`
-- `recharge_codes(code,days,price,is_used)`
+```bash
+flutter run -t lib/main_customer.dart --dart-define=MYFATOORAH_API_TOKEN=<test-token>
+```
 
-اليوم الأول لا يحتوي واجهات إنتاجية كاملة؛ توجد نقاط تشغيل وطبقة بيانات وقواعد Firebase فقط.
+لا تضع `google-services.json` أو `GoogleService-Info.plist` أو أي token داخل المستودع.

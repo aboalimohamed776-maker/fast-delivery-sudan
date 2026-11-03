@@ -4,10 +4,7 @@ service cloud.firestore {
     function signedIn() { return request.auth != null; }
     function admin() { return signedIn() && request.auth.token.admin == true; }
 
-    match /restaurants/{id} {
-      allow read: if true;
-      allow write: if admin();
-    }
+    match /restaurants/{id} { allow read: if true; allow write: if admin(); }
     match /captains/{id} {
       allow read: if admin() || (signedIn() && request.auth.uid == id);
       allow create: if signedIn() && request.auth.uid == id;
@@ -20,8 +17,7 @@ service cloud.firestore {
       allow update: if admin() || (signedIn() && resource.data.captain_id == request.auth.uid);
       allow delete: if admin();
     }
-    match /recharge_codes/{id} {
-      allow read, write: if admin();
-    }
+    match /recharge_codes/{id} { allow read, write: if admin(); }
+    match /countries_stats/{id} { allow read: if signedIn(); allow write: if admin(); }
   }
 }

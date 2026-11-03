@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/firebase/firebase_bootstrap.dart';
+import 'zoolfast_theme.dart';
 
 enum AppFlavor { customer, captain, admin }
 
@@ -8,23 +9,17 @@ class FastDeliveryApp extends StatelessWidget {
   final AppFlavor flavor;
 
   String get title => switch (flavor) {
-        AppFlavor.customer => 'Fast Delivery Sudan · Customer',
-        AppFlavor.captain => 'Fast Delivery Sudan · Captain',
-        AppFlavor.admin => 'Fast Delivery Sudan · Admin',
+        AppFlavor.customer => 'ZoolFast · Customer',
+        AppFlavor.captain => 'ZoolFast · Captain',
+        AppFlavor.admin => 'ZoolFast · Admin',
       };
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: title,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: const Color(0xff0b6b4b), useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(title: Text(title)),
-        body: Center(child: Text('Day 1 foundation · ${flavor.name}')),
-      ),
-    );
-  }
+  @override Widget build(BuildContext context) => MaterialApp(
+    title: title,
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(colorSchemeSeed: ZoolFastTheme.yellow, scaffoldBackgroundColor: Colors.white, useMaterial3: true),
+    home: Scaffold(appBar: AppBar(backgroundColor: ZoolFastTheme.black, foregroundColor: ZoolFastTheme.yellow, title: Text(title)), body: Center(child: Text('ZoolFast · ${flavor.name}'))),
+  );
 }
 
 Future<void> bootstrapFirebase() => FirebaseBootstrap.initialize();

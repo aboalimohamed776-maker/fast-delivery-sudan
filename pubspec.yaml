@@ -1,7 +1,7 @@
-name: fast_delivery_sudan
-description: Fast Delivery Sudan - Day 1 and Day 2 foundation.
+name: zoolfast
+description: ZoolFast - Day 3 foundation for five countries, recharge codes, and payments.
 publish_to: 'none'
-version: 0.2.0+2
+version: 0.3.0+3
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -15,6 +15,8 @@ dependencies:
   cloud_firestore: ^5.5.0
   firebase_storage: ^12.3.6
   firebase_database: ^11.1.6
+  shared_preferences: ^2.3.3
+  http: ^1.2.2
   url_launcher: ^6.3.1
 
 dev_dependencies:
