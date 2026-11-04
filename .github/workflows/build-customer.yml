@@ -1,0 +1,30 @@
+name: Build ZoolFast Customer APK v0.5
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: stable
+          cache: true
+      - name: Get packages
+        run: flutter pub get
+      - name: Analyze customer app
+        run: flutter analyze lib/main_customer.dart lib/features/customer lib/services lib/data/models/restaurant.dart
+      - name: Build customer APK
+        run: flutter build apk --release -t lib/main_customer.dart
+      - name: Upload ZoolFast Customer v0.5 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZoolFast-Customer-v05-APK
+          path: build/app/outputs/flutter-apk/app-release.apk

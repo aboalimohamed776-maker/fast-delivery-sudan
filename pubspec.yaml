@@ -1,7 +1,7 @@
 name: zoolfast
 description: ZoolFast - Day 3 foundation for five countries, recharge codes, and payments.
 publish_to: 'none'
-version: 0.3.0+3
+version: 0.5.0+5
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -26,3 +26,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/founder_card.png
