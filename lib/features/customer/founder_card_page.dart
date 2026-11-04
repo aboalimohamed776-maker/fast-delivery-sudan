@@ -31,7 +31,7 @@ class FounderCardPage extends StatelessWidget {
           const SizedBox(height: 16),
           const Directionality(textDirection: TextDirection.ltr, child: Column(children: [
             SelectableText(phone, textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             SelectableText(email, textAlign: TextAlign.center, style: TextStyle(fontSize: 16)),
           ])),
           const SizedBox(height: 18),
