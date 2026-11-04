@@ -19,6 +19,8 @@ jobs:
           cache: true
       - name: Get packages
         run: flutter pub get
+      - name: Ensure Android v2 platform files
+        run: flutter create . --platforms=android --project-name zoolfast
       - name: Analyze customer app
         run: flutter analyze lib/main_customer.dart lib/features/customer lib/services lib/data/models/restaurant.dart
       - name: Build customer APK
