@@ -29,10 +29,10 @@ class FounderCardPage extends StatelessWidget {
           const SizedBox(height: 6),
           const Text('من السوق لحد باب بيتك', textAlign: TextAlign.center, style: TextStyle(color: Colors.black54)),
           const SizedBox(height: 16),
-          Directionality(textDirection: TextDirection.ltr, child: Column(children: [
-            SelectableText(phone, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Directionality(textDirection: TextDirection.ltr, child: Column(children: [
+            SelectableText(phone, textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
-            SelectableText(email, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            SelectableText(email, textAlign: TextAlign.center, style: TextStyle(fontSize: 16)),
           ])),
           const SizedBox(height: 18),
           Wrap(alignment: WrapAlignment.center, spacing: 8, runSpacing: 8, children: [
