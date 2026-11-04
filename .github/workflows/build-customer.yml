@@ -21,6 +21,8 @@ jobs:
         run: flutter pub get
       - name: Ensure Android v2 platform files
         run: flutter create . --platforms=android --project-name zoolfast
+      - name: Align Gradle repository mode
+        run: sed -i 's/RepositoriesMode.FAIL_ON_PROJECT_REPOS/RepositoriesMode.PREFER_SETTINGS/' android/settings.gradle
       - name: Analyze customer app
         run: flutter analyze lib/main_customer.dart lib/features/customer lib/services lib/data/models/restaurant.dart
       - name: Build customer APK
