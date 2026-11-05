@@ -1,11 +1,11 @@
-def flutterVersionCode = '5'
-def flutterVersionName = '0.5.0'
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'dev.flutter.flutter-gradle-plugin'
 }
+
+def flutterVersionCode = '5'
+def flutterVersionName = '0.5.0'
 
 android { namespace 'sd.fastdelivery.app'; compileSdk flutter.compileSdkVersion
     defaultConfig { applicationId 'sd.fastdelivery.app'; minSdk flutter.minSdkVersion; targetSdk flutter.targetSdkVersion; versionCode flutterVersionCode.toInteger(); versionName flutterVersionName }
