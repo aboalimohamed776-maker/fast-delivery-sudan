@@ -26,6 +26,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("$flutterSdkPath/bin/cache/artifacts/engine") }
     }
 }
 
