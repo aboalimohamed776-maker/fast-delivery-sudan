@@ -23,6 +23,8 @@ jobs:
         run: flutter precache --android
       - name: Ensure Android v2 platform files
         run: flutter create . --platforms=android --project-name zoolfast
+      - name: Align Kotlin plugin version
+        run: sed -i 's/1\.9\.22/2.1.0/g' android/settings.gradle
       - name: Upgrade Gradle wrapper for Android plugin
         run: sed -i 's/gradle-[0-9.]*-all.zip/gradle-8.4-all.zip/' android/gradle/wrapper/gradle-wrapper.properties
       - name: Align Gradle repository mode
