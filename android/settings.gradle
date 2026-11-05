@@ -26,6 +26,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri('https://storage.googleapis.com/download.flutter.io') }
         maven { url = uri("$flutterSdkPath/bin/cache/artifacts/engine") }
         maven { url = uri("$flutterSdkPath/bin/cache/artifacts/engine/android-arm-release") }
         maven { url = uri("$flutterSdkPath/bin/cache/artifacts/engine/android-arm64-release") }
