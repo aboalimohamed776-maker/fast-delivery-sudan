@@ -19,6 +19,8 @@ jobs:
           cache: true
       - name: Get packages
         run: flutter pub get
+      - name: Precache Android engine artifacts
+        run: flutter precache --android
       - name: Ensure Android v2 platform files
         run: flutter create . --platforms=android --project-name zoolfast
       - name: Upgrade Gradle wrapper for Android plugin
