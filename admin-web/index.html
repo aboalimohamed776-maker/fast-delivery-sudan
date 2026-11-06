@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B3D2E" />
+  <meta name="description" content="ZoolFast Admin - لوحة تحكم الأدمن التجريبية لمدينة بورتسودان" />
+  <title>ZoolFast Admin - لوحة تحكم الأدمن</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+
+  <section id="login-view" class="login-shell">
+    <div class="login-brand-panel">
+      <div class="brand-mark"><span class="brand-z">Z</span><span class="brand-speed">›››</span></div>
+      <p class="eyebrow">ZoolFast · لوحة تحكم الأدمن</p>
+      <h1>إدارة التوصيل<br><span>من السوق لحد باب بيتك</span></h1>
+      <p class="login-copy">منصة تشغيل موحدة لطلبات مدينة بورتسودان، الكباتن، المطاعم، والاشتراكات.</p>
+      <div class="login-pills"><span>بورتسودان فقط</span><span>وضع تجريبي</span><span>بيانات محلية</span></div>
+    </div>
+    <div class="login-card-wrap">
+      <form id="login-form" class="login-card">
+        <div class="mobile-logo brand-mark"><span class="brand-z">Z</span><span class="brand-speed">›››</span></div>
+        <p class="eyebrow orange">دخول الأدمن فقط</p>
+        <h2>مرحباً بك</h2>
+        <p class="muted">استخدم بيانات التجربة للدخول إلى لوحة ZoolFast.</p>
+        <label>إيميل الأدمن<input id="login-email" type="email" autocomplete="username" placeholder="aboali.mohamed776@gmail.com" required /></label>
+        <label>كلمة السر<input id="login-password" type="password" autocomplete="current-password" placeholder="كلمة السر" required /></label>
+        <label>كود OTP<input id="login-otp" inputmode="numeric" maxlength="6" placeholder="123456" required /></label>
+        <div class="demo-credential"><span>الكود التجريبي</span><strong>123456</strong></div>
+        <button class="btn primary full" type="submit">دخول إلى اللوحة <span>←</span></button>
+        <p id="login-error" class="form-error" aria-live="polite"></p>
+        <p class="login-note">هذا تسجيل دخول تجريبي محلي. سيتم استبداله بـ Firebase Auth وOTP الحقيقي لاحقاً.</p>
+      </form>
+    </div>
+  </section>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="brand-mark compact"><span class="brand-z">Z</span><span class="brand-speed">›››</span></div>
+        <div><strong>ZoolFast</strong><small>لوحة الأدمن</small></div>
+        <button class="icon-btn close-sidebar" id="close-sidebar" aria-label="إغلاق القائمة">×</button>
+      </div>
+      <div class="environment-tag"><span class="pulse-dot"></span> وضع تجريبي · بورتسودان</div>
+      <nav class="nav-list" aria-label="التنقل الرئيسي">
+        <button class="nav-item active" data-section="dashboard"><span>◈</span> الرئيسية</button>
+        <button class="nav-item" data-section="orders"><span>▣</span> الطلبات الحية <b class="nav-count">3</b></button>
+        <button class="nav-item" data-section="tracking"><span>⌖</span> التتبع الحي</button>
+        <button class="nav-item" data-section="captains"><span>♢</span> الكباتن <b class="nav-count muted-count">5</b></button>
+        <button class="nav-item" data-section="restaurants"><span>▤</span> المطاعم والمينيو</button>
+        <button class="nav-item" data-section="codes"><span>⌁</span> أكواد الاشتراك</button>
+        <button class="nav-item" data-section="settings"><span>⚙</span> الإعدادات</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="admin-mini"><div class="avatar">AA</div><div><strong>Abu Ali Mohamed</strong><small>المدير التنفيذي</small></div></div>
+        <button class="logout-link" id="logout-btn">↩ تسجيل الخروج</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-start"><button class="icon-btn menu-toggle" id="menu-toggle" aria-label="فتح القائمة">☰</button><div><span class="topbar-kicker">الأربعاء، 6 نوفمبر 2026</span><h1 id="page-title">الرئيسية</h1></div></div>
+        <div class="topbar-actions"><button class="icon-btn notification-btn" id="notification-btn" aria-label="التنبيهات">♢<i></i></button><div class="top-admin"><div class="avatar small">AA</div><span>Abu Ali</span></div></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="section-view active" id="section-dashboard">
+          <div class="section-intro"><div><p class="eyebrow orange">نظرة تشغيلية سريعة</p><h2>صباح الخير، أبو علي</h2><p class="muted">هذه ملخصات التشغيل اللحظية داخل بورتسودان.</p></div><button class="btn secondary" data-go="orders">عرض الطلبات الحية <span>←</span></button></div>
+          <div class="stat-grid" id="stats-grid"></div>
+          <div class="dashboard-grid">
+            <article class="panel chart-panel"><div class="panel-head"><div><h3>مبيعات الأسبوع</h3><p class="muted">بالجنيه السوداني · آخر 7 أيام</p></div><span class="trend up">+18.4% ↑</span></div><div id="sales-chart" class="sales-chart"></div></article>
+            <article class="panel quick-panel"><div class="panel-head"><div><h3>حالة التشغيل</h3><p class="muted">مؤشرات مباشرة</p></div><span class="live-label"><i></i> مباشر</span></div><div class="ops-list"><div><span class="ops-icon green">●</span><div><strong>الكباتن المتاحة</strong><small>جاهزون لاستلام طلبات</small></div><b>3</b></div><div><span class="ops-icon orange-bg">↗</span><div><strong>طلبات تحتاج متابعة</strong><small>قيد الانتظار منذ 5 دقائق</small></div><b>2</b></div><div><span class="ops-icon gold">▣</span><div><strong>مطاعم مفتوحة</strong><small>تستقبل الطلبات الآن</small></div><b>4</b></div></div></article>
+          </div>
+          <article class="panel latest-panel"><div class="panel-head"><div><h3>آخر الطلبات</h3><p class="muted">آخر 5 طلبات وصلت إلى المنصة</p></div><button class="text-btn" data-go="orders">كل الطلبات ←</button></div><div class="table-wrap"><table><thead><tr><th>الطلب</th><th>الزبون</th><th>المطعم</th><th>الإجمالي</th><th>الكابتن</th><th>الحالة</th></tr></thead><tbody id="latest-orders-body"></tbody></table></div></article>
+        </section>
+
+        <section class="section-view" id="section-orders">
+          <div class="section-intro"><div><p class="eyebrow orange">تشغيل مباشر</p><h2>الطلبات الحية</h2><p class="muted">تتحدث القائمة تلقائياً كل 5 ثوانٍ · آخر تحديث <span id="orders-updated">الآن</span></p></div><button class="btn primary" id="new-order-btn">＋ طلب تجريبي جديد</button></div>
+          <div class="filter-bar panel"><div class="filter-tabs" id="order-filters"><button class="filter-tab active" data-filter="all">الكل <b>8</b></button><button class="filter-tab" data-filter="pending">قيد الانتظار <b>2</b></button><button class="filter-tab" data-filter="delivery">قيد التوصيل <b>3</b></button><button class="filter-tab" data-filter="delivered">تم التسليم <b>2</b></button><button class="filter-tab" data-filter="cancelled">ملغي <b>1</b></button></div><div class="search-box"><span>⌕</span><input id="order-search" type="search" placeholder="ابحث برقم الطلب أو الاسم..." /></div></div>
+          <article class="panel orders-panel"><div class="table-wrap wide"><table><thead><tr><th>الطلب</th><th>الزبون</th><th>المطعم</th><th>الطلب</th><th>الإجمالي</th><th>الدفع</th><th>الكابتن</th><th>الحالة</th><th>الوقت</th><th></th></tr></thead><tbody id="orders-body"></tbody></table></div></article>
+        </section>
+
+        <section class="section-view" id="section-tracking">
+          <div class="section-intro"><div><p class="eyebrow orange">تحديث كل 5 ثوانٍ</p><h2>خريطة التتبع الحية</h2><p class="muted">مدينة بورتسودان · مواقع تجريبية للكباتن والمطاعم والطلبات</p></div><button class="btn secondary" id="fullscreen-map">⛶ تكبير الخريطة</button></div>
+          <div class="tracking-layout"><article class="panel map-panel"><div class="map-toolbar"><div class="map-legend"><span><i class="legend-dot green"></i> متاح</span><span><i class="legend-dot orange"></i> مشغول</span><span><i class="legend-dot gold"></i> مطعم</span><span><i class="legend-dot blue"></i> زبون</span></div><span class="map-live"><i></i> يتحرك الآن</span></div><div class="map-canvas" id="map-canvas"><svg viewBox="0 0 900 560" role="img" aria-label="خريطة تجريبية لمدينة بورتسودان"><defs><linearGradient id="sea" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#dff5f1"/><stop offset="1" stop-color="#c6e8e1"/></linearGradient><pattern id="roads" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M0 25 L70 25 M15 0 L15 70 M-10 60 L60 -10 M50 80 L80 50" stroke="#b9dad2" stroke-width="2" fill="none" opacity=".7"/></pattern></defs><rect width="900" height="560" fill="url(#sea)"/><path d="M0 90 C170 40, 275 126, 400 88 S680 74, 900 125 L900 560 L0 560Z" fill="#f7fbf7"/><path d="M0 90 C170 40, 275 126, 400 88 S680 74, 900 125" stroke="#8ecfc3" stroke-width="5" fill="none"/><rect x="25" y="115" width="850" height="405" rx="28" fill="url(#roads)" opacity=".75"/><path d="M120 420 C270 330, 330 420, 470 295 S700 230, 820 335" stroke="#ffffff" stroke-width="10" fill="none" opacity=".9"/><path d="M145 205 C265 245, 350 175, 520 225 S710 390, 800 430" stroke="#ffffff" stroke-width="8" fill="none" opacity=".8"/><text x="450" y="160" text-anchor="middle" fill="#0b3d2e" font-size="28" font-weight="800">مدينة بورتسودان</text><g id="map-route"><path d="M540 290 L720 410" stroke="#ff7a00" stroke-width="5" stroke-dasharray="12 10" fill="none"/></g><g id="map-markers"></g></svg><div class="map-label sea-label">البحر الأحمر</div></div></article><aside class="panel captain-detail-panel"><div class="panel-head"><div><h3>الكباتن على الخريطة</h3><p class="muted">اضغط على أي كابتن للتفاصيل</p></div><span class="live-label"><i></i> 5 متصلين</span></div><div id="captain-map-list" class="captain-map-list"></div><div id="selected-captain" class="selected-captain"><div class="empty-detail">اختر كابتناً من القائمة<br>لعرض تفاصيله</div></div></aside></div>
+        </section>
+
+        <section class="section-view" id="section-captains">
+          <div class="section-intro"><div><p class="eyebrow orange">فريق التوصيل</p><h2>الكباتن</h2><p class="muted">إدارة كباتن ZoolFast داخل بورتسودان</p></div><button class="btn primary" id="add-captain-btn">＋ إضافة كابتن</button></div>
+          <article class="panel code-strip"><div class="code-strip-title"><span class="strip-icon">⌁</span><div><h3>توليد كود اشتراك جديد</h3><p>أنشئ كوداً أسبوعياً أو شهرياً وأرسله للكابتن.</p></div></div><div class="code-controls"><select id="quick-code-type"><option value="week">أسبوعي · 7 أيام</option><option value="month">شهري · 30 يوماً</option></select><select id="quick-code-captain"></select><button class="btn primary" id="quick-generate">توليد كود</button></div><div class="generated-code hidden" id="quick-generated"><strong id="quick-code-value">ZF-WEEK-8821</strong><button class="icon-btn" id="copy-quick-code" title="نسخ">⧉</button><button class="text-btn" id="whatsapp-quick">إرسال واتساب</button></div></article>
+          <article class="panel"><div class="panel-head"><div><h3>قائمة الكباتن</h3><p class="muted">5 كباتن مسجلين · 3 متاحين الآن</p></div><div class="search-box small"><span>⌕</span><input id="captain-search" type="search" placeholder="ابحث عن كابتن..." /></div></div><div class="table-wrap"><table><thead><tr><th>الكابتن</th><th>الهاتف</th><th>الحالة</th><th>الاشتراك</th><th>طلبات اليوم</th><th>أرباح اليوم</th><th></th></tr></thead><tbody id="captains-body"></tbody></table></div></article>
+        </section>
+
+        <section class="section-view" id="section-restaurants">
+          <div class="section-intro"><div><p class="eyebrow orange">الشركاء والمينيو</p><h2>المطاعم والمينيو</h2><p class="muted">4 مطاعم تجريبية داخل بورتسودان · إدارة مباشرة بدون مبرمج</p></div><button class="btn primary" id="add-restaurant-btn">＋ إضافة مطعم</button></div>
+          <div class="restaurant-grid" id="restaurant-grid"></div>
+        </section>
+
+        <section class="section-view" id="section-codes">
+          <div class="section-intro"><div><p class="eyebrow orange">اشتراكات الكباتن</p><h2>أكواد الاشتراك</h2><p class="muted">تتبع الأكواد النشطة والمنتهية بسهولة.</p></div><button class="btn primary" data-go="captains">＋ توليد كود جديد</button></div>
+          <article class="panel"><div class="table-wrap"><table><thead><tr><th>الكود</th><th>الكابتن</th><th>النوع</th><th>تاريخ البداية</th><th>تاريخ الانتهاء</th><th>الحالة</th></tr></thead><tbody id="codes-body"></tbody></table></div></article>
+        </section>
+
+        <section class="section-view" id="section-settings">
+          <div class="section-intro"><div><p class="eyebrow orange">تحكم المنصة</p><h2>الإعدادات</h2><p class="muted">إعدادات تشغيل ZoolFast التجريبية.</p></div><button class="btn primary" id="save-settings">حفظ التغييرات</button></div>
+          <div class="settings-grid"><article class="panel settings-card"><div class="panel-head"><div><h3>التوصيل والدعم</h3><p class="muted">القيم الافتراضية للطلبات الجديدة</p></div><span class="settings-icon">⚙</span></div><label>سعر التوصيل الافتراضي<input id="delivery-fee" type="number" value="4000" /> <small>SDG</small></label><label>رقم واتساب الدعم<input id="support-whatsapp" type="text" value="+249 124 058 142" dir="ltr" /></label></article><article class="panel settings-card"><div class="panel-head"><div><h3>الإشعارات</h3><p class="muted">تحكم في تنبيهات التشغيل</p></div><span class="settings-icon">♢</span></div><div class="toggle-row"><div><strong>تنبيه الطلب الجديد</strong><small>صوت ولون برتقالي عند وصول طلب</small></div><button class="toggle on" data-toggle="new-order-alert"><i></i></button></div><div class="toggle-row"><div><strong>تحديث الخريطة</strong><small>تحديث المواقع كل 5 ثوانٍ</small></div><button class="toggle on" data-toggle="map-refresh"><i></i></button></div><div class="toggle-row"><div><strong>إشعارات تحويل الطلب</strong><small>إظهار رسالة للزبون عند تغيير الكابتن</small></div><button class="toggle on" data-toggle="transfer-alert"><i></i></button></div></article></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal-root"></div>
+  <script src="app.js"></script>
+</body>
+</html>
