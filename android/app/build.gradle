@@ -17,6 +17,9 @@ android { namespace 'sd.fastdelivery.app'; compileSdk flutter.compileSdkVersion
         captain { dimension 'app'; applicationIdSuffix '.captain' }
         admin { dimension 'app'; applicationIdSuffix '.admin' }
     }
+    buildTypes {
+        release { signingConfig signingConfigs.debug }
+    }
 }
 
 flutter { source '../..' }

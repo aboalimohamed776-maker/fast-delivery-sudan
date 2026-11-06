@@ -35,8 +35,22 @@ jobs:
         run: flutter analyze --no-fatal-infos lib/main_customer.dart lib/features/customer lib/services lib/data/models/restaurant.dart
       - name: Build customer APK
         run: flutter build apk --release --flavor customer -t lib/main_customer.dart
+      - name: Verify signed APK
+        run: |
+          APK=build/app/outputs/flutter-apk/app-customer-release.apk
+          BUILD_TOOLS=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)
+          "$BUILD_TOOLS/zipalign" -c -v 4 "$APK"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          "$BUILD_TOOLS/aapt" dump badging "$APK" | head -5
       - name: Upload ZoolFast Customer v0.5 APK
         uses: actions/upload-artifact@v4
         with:
           name: ZoolFast-Customer-v05-APK
           path: build/app/outputs/flutter-apk/app-customer-release.apk
+      - name: Publish signed APK to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APK=build/app/outputs/flutter-apk/app-customer-release.apk
+          gh release view v0.5.0 >/dev/null 2>&1 || gh release create v0.5.0 --title "ZoolFast v0.5.0" --notes "Signed customer APK build."
+          gh release upload v0.5.0 "$APK#ZoolFast-Customer-v0.5.0.apk" --clobber
