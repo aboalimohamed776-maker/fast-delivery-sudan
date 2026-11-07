@@ -1,0 +1,16 @@
+{
+  "name": "ZoolFast Sudan",
+  "short_name": "ZoolFast",
+  "description": "من السوق لحد باب بيتك",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF7A00",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {"src":"./assets/icon.png","sizes":"any","type":"image/png","purpose":"any maskable"}
+  ]
+}

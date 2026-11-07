@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FF7A00" />
+  <meta name="description" content="ZoolFast Sudan — من السوق لحد باب بيتك" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>ZoolFast Sudan</title>
+</head>
+<body>
+  <div id="app-shell" class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="ZoolFast">ZoolFast</div>
+      <button id="install-button" class="install-button" type="button" hidden>تثبيت التطبيق</button>
+    </header>
+    <main id="app-main" class="app-main" tabindex="-1">
+      <section class="structure-placeholder" aria-labelledby="structure-title">
+        <span class="eyebrow">ZoolFast · Sudan</span>
+        <h1 id="structure-title">هيكل تطبيق العميل جاهز</h1>
+        <p>هذه نسخة الدفعة الأولى: تجهيز PWA والربط الأساسي فقط. الصفحات والمحتوى سيُبنيان في الدفعات التالية.</p>
+        <div class="status-card" role="status">
+          <span class="status-dot"></span>
+          <span id="connection-status">جاري تجهيز اتصال Supabase…</span>
+        </div>
+      </section>
+    </main>
+    <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+      <button class="nav-item active" data-route="home" type="button">الرئيسية</button>
+      <button class="nav-item" data-route="stores" type="button">المتاجر</button>
+      <button class="nav-item" data-route="cart" type="button">السلة</button>
+      <button class="nav-item" data-route="about" type="button">من نحن</button>
+    </nav>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
