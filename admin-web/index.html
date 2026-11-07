@@ -51,6 +51,7 @@
         <button class="nav-item" data-section="captains"><span>♢</span> الكباتن <b class="nav-count muted-count">5</b></button>
         <button class="nav-item" data-section="restaurants"><span>▤</span> المطاعم والمينيو</button>
         <button class="nav-item" data-section="codes"><span>⌁</span> أكواد الاشتراك</button>
+        <button class="nav-item" data-section="countries"><span>◎</span> الدول والمدن</button>
         <button class="nav-item" data-section="settings"><span>⚙</span> الإعدادات</button>
       </nav>
       <div class="sidebar-bottom">
@@ -61,13 +62,13 @@
 
     <main class="main-content">
       <header class="topbar">
-        <div class="topbar-start"><button class="icon-btn menu-toggle" id="menu-toggle" aria-label="فتح القائمة">☰</button><div><span class="topbar-kicker">الأربعاء، 6 نوفمبر 2026</span><h1 id="page-title">الرئيسية</h1></div></div>
+        <div class="topbar-start"><button class="icon-btn menu-toggle" id="menu-toggle" aria-label="فتح القائمة">☰</button><div><span class="topbar-kicker" id="today-date">—</span><h1 id="page-title">الرئيسية</h1></div></div>
         <div class="topbar-actions"><button class="icon-btn notification-btn" id="notification-btn" aria-label="التنبيهات">♢<i></i></button><div class="top-admin"><div class="avatar small">AA</div><span>Abu Ali</span></div></div>
       </header>
 
       <div class="content-wrap">
         <section class="section-view active" id="section-dashboard">
-          <div class="section-intro"><div><p class="eyebrow orange">نظرة تشغيلية سريعة</p><h2>صباح الخير، أبو علي</h2><p class="muted">هذه ملخصات التشغيل اللحظية داخل بورتسودان.</p></div><button class="btn secondary" data-go="orders">عرض الطلبات الحية <span>←</span></button></div>
+          <div class="section-intro"><div><p class="eyebrow orange">نظرة تشغيلية سريعة</p><h2 id="greeting-title">صباح الخير، أبو علي</h2><p class="muted">هذه ملخصات التشغيل اللحظية داخل بورتسودان.</p></div><button class="btn secondary" data-go="orders">عرض الطلبات الحية <span>←</span></button></div>
           <div class="stat-grid" id="stats-grid"></div>
           <div class="dashboard-grid">
             <article class="panel chart-panel"><div class="panel-head"><div><h3>مبيعات الأسبوع</h3><p class="muted">بالجنيه السوداني · آخر 7 أيام</p></div><span class="trend up">+18.4% ↑</span></div><div id="sales-chart" class="sales-chart"></div></article>
@@ -101,6 +102,11 @@
         <section class="section-view" id="section-codes">
           <div class="section-intro"><div><p class="eyebrow orange">اشتراكات الكباتن</p><h2>أكواد الاشتراك</h2><p class="muted">تتبع الأكواد النشطة والمنتهية بسهولة.</p></div><button class="btn primary" data-go="captains">＋ توليد كود جديد</button></div>
           <article class="panel"><div class="table-wrap"><table><thead><tr><th>الكود</th><th>الكابتن</th><th>النوع</th><th>تاريخ البداية</th><th>تاريخ الانتهاء</th><th>الحالة</th></tr></thead><tbody id="codes-body"></tbody></table></div></article>
+        </section>
+
+        <section class="section-view" id="section-countries">
+          <div class="section-intro"><div><p class="eyebrow orange">التوسع الإقليمي</p><h2>الدول والمدن</h2><p class="muted">إدارة الدول والمدن المتاحة في تطبيق ZoolFast.</p></div><button class="btn primary" id="add-country-btn">＋ إضافة دولة جديدة</button></div>
+          <div class="country-grid" id="country-grid"></div>
         </section>
 
         <section class="section-view" id="section-settings">

@@ -38,10 +38,17 @@ const state = {
     {code:'ZF-WEEK-8821',captain:'سامي حسن',type:'أسبوعي',from:'15 نوفمبر 2026',to:'21 نوفمبر 2026',status:'active'},
     {code:'ZF-MONTH-3908',captain:'محمود النور',type:'شهري',from:'1 نوفمبر 2026',to:'30 نوفمبر 2026',status:'active'},
     {code:'ZF-WEEK-7710',captain:'حسن عوض',type:'أسبوعي',from:'27 أكتوبر 2026',to:'2 نوفمبر 2026',status:'expired'}
+  ],
+  countries: [
+    {id:'sd',flag:'🇸🇩',name:'السودان',code:'SD',currency:'SDG',enabled:true,cities:['بورتسودان']},
+    {id:'eg',flag:'🇪🇬',name:'مصر',code:'EG',currency:'EGP',enabled:false,cities:[]},
+    {id:'sa',flag:'🇸🇦',name:'السعودية',code:'SA',currency:'SAR',enabled:false,cities:[]},
+    {id:'ae',flag:'🇦🇪',name:'الإمارات',code:'AE',currency:'AED',enabled:false,cities:[]},
+    {id:'qa',flag:'🇶🇦',name:'قطر',code:'QA',currency:'QAR',enabled:false,cities:[]}
   ]
 };
 
-const sectionTitles = {dashboard:'الرئيسية',orders:'الطلبات الحية',tracking:'التتبع الحي',captains:'الكباتن',restaurants:'المطاعم والمينيو',codes:'أكواد الاشتراك',settings:'الإعدادات'};
+const sectionTitles = {dashboard:'الرئيسية',orders:'الطلبات الحية',tracking:'التتبع الحي',captains:'الكباتن',restaurants:'المطاعم والمينيو',codes:'أكواد الاشتراك',countries:'الدول والمدن',settings:'الإعدادات'};
 const statusLabels = {pending:'قيد الانتظار',delivery:'قيد التوصيل',delivered:'تم التسليم',cancelled:'ملغي'};
 const statusClasses = {pending:'pending',delivery:'delivery',delivered:'delivered',cancelled:'cancelled'};
 const captainStatusLabels = {available:'متاح',busy:'مشغول',expired:'اشتراك منتهي'};
@@ -52,6 +59,14 @@ const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 function showToast(message){
   const toast = $('#toast'); toast.textContent = message; toast.classList.add('show');
   clearTimeout(showToast.timer); showToast.timer = setTimeout(()=>toast.classList.remove('show'), 2800);
+}
+function updateDateAndGreeting(){
+  const now = new Date();
+  const localeDate = new Intl.DateTimeFormat('ar-SD', {weekday:'long', day:'numeric', month:'long', year:'numeric'}).format(now);
+  const hour = now.getHours();
+  const greeting = hour >= 5 && hour < 12 ? 'صباح الخير' : 'مساء الخير';
+  $('#today-date').textContent = localeDate;
+  $('#greeting-title').textContent = `${greeting}، أبو علي`;
 }
 function money(value){ return `${Number(value).toLocaleString('en-US')} SDG`; }
 function initials(name){ return name.split(' ').slice(0,2).map(x=>x[0]).join(''); }
@@ -88,6 +103,7 @@ function navigate(section){
   if(section==='captains') renderCaptains();
   if(section==='restaurants') renderRestaurants();
   if(section==='codes') renderCodes();
+  if(section==='countries') renderCountries();
 }
 function bindNavigation(){
   $$('.nav-item').forEach(item=>item.addEventListener('click',()=>navigate(item.dataset.section)));
@@ -162,13 +178,29 @@ function renderRestaurants(){
   $$('[data-menu-view]').forEach(btn=>btn.addEventListener('click',()=>openMenuModal(btn.dataset.menuView)));
 }
 function renderCodes(){ $('#codes-body').innerHTML=state.codes.map(c=>`<tr><td><span class="order-id">${c.code}</span></td><td>${c.captain}</td><td>${c.type}</td><td>${c.from}</td><td>${c.to}</td><td><span class="status ${c.status==='active'?'delivered':'cancelled'}">${c.status==='active'?'نشط':'منتهي'}</span></td></tr>`).join(''); }
+function renderCountries(){
+  $('#country-grid').innerHTML=state.countries.map(country=>`<article class="country-card"><div class="country-head"><div class="country-identity"><span class="country-flag">${country.flag}</span><div><h3>${country.name}</h3><p>${country.code} · ${country.currency}</p></div></div><button class="toggle ${country.enabled?'on':''}" data-country-toggle="${country.id}" aria-label="تفعيل ${country.name}"><i></i></button></div><div class="country-status ${country.enabled?'enabled':'disabled'}"><span></span>${country.enabled?'مفعلة الآن':'غير مفعلة'}</div><div class="country-cities"><strong>المدن</strong>${country.cities.length?country.cities.map(city=>`<span>${city}</span>`).join(''):'<em>لم تتم إضافة مدن بعد</em>'}</div><button class="mini-btn country-city-btn" data-country-city="${country.id}">＋ إضافة مدينة</button></article>`).join('');
+  $$('[data-country-toggle]').forEach(button=>button.addEventListener('click',()=>{const country=state.countries.find(item=>item.id===button.dataset.countryToggle);country.enabled=!country.enabled;renderCountries();showToast(`${country.name}: ${country.enabled?'تم التفعيل':'تم التعطيل'} تجريبياً`)}));
+  $$('[data-country-city]').forEach(button=>button.addEventListener('click',()=>openCityModal(button.dataset.countryCity)));
+}
 
 function openModal(content){$('#modal-root').innerHTML=`<div class="modal-backdrop" id="modal-backdrop"><div class="modal">${content}</div></div>`;$('#modal-backdrop').addEventListener('click',e=>{if(e.target.id==='modal-backdrop')closeModal()});$('.modal-close')?.addEventListener('click',closeModal);}
 function closeModal(){$('#modal-root').innerHTML='';}
 function openTransferModal(orderId){
   const order=state.orders.find(o=>o.id===orderId)||state.orders[0];
-  openModal(`<div class="modal-head"><div><p class="eyebrow orange">تحويل الطلب</p><h3>${order.id} · ${order.item}</h3><p class="muted">الكابتن الحالي: <strong>${order.captain}</strong></p></div><button class="icon-btn modal-close">×</button></div><div class="demo-credential" style="margin-top:16px"><span>الطلب</span><strong>${money(order.total)}</strong></div><label style="display:block;color:var(--green);font-weight:800;font-size:12px;margin-top:17px">اختر الكابتن الجديد<select id="transfer-captain" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;margin-top:6px">${state.captains.filter(c=>c.status==='available').map(c=>`<option value="${c.id}">${c.name} · ${c.speed}</option>`).join('')}</select></label><label style="display:block;color:var(--green);font-weight:800;font-size:12px;margin-top:13px">سبب التحويل<textarea id="transfer-reason" rows="3" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;margin-top:6px;resize:vertical" placeholder="مثلاً: الكابتن الحالي بعيد عن موقع المطعم"></textarea></label><div class="modal-actions"><button class="btn primary" id="confirm-transfer">تحويل خلال 3 ثوانٍ</button><button class="btn secondary modal-close">إلغاء</button></div>`);
+  const currentCaptain = state.captains.find(c=>c.name===order.captain);
+  const replacementCaptains = state.captains.filter(c=>c.status==='available' && (!currentCaptain || c.id!==currentCaptain.id));
+  openModal(`<div class="modal-head"><div><p class="eyebrow orange">تحويل الطلب</p><h3>${order.id} · ${order.item}</h3><p class="muted">الكابتن الحالي: <strong>${order.captain}</strong></p></div><button class="icon-btn modal-close">×</button></div><div class="demo-credential" style="margin-top:16px"><span>الطلب</span><strong>${money(order.total)}</strong></div><label style="display:block;color:var(--green);font-weight:800;font-size:12px;margin-top:17px">اختر الكابتن الجديد<select id="transfer-captain" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;margin-top:6px">${replacementCaptains.length?replacementCaptains.map(c=>`<option value="${c.id}">${c.name} · ${c.speed}</option>`).join(''):'<option value="">لا يوجد كابتن متاح آخر حالياً</option>'}</select></label><label style="display:block;color:var(--green);font-weight:800;font-size:12px;margin-top:13px">سبب التحويل<textarea id="transfer-reason" rows="3" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;margin-top:6px;resize:vertical" placeholder="مثلاً: الكابتن الحالي بعيد عن موقع المطعم"></textarea></label><div class="modal-actions"><button class="btn primary" id="confirm-transfer" ${replacementCaptains.length?'':'disabled'}>تحويل خلال 3 ثوانٍ</button><button class="btn secondary modal-close">إلغاء</button></div>`);
   $('#confirm-transfer').addEventListener('click',()=>{const captain=state.captains.find(c=>c.id===$('#transfer-captain').value);const button=$('#confirm-transfer');button.disabled=true;button.textContent='جارٍ التحويل...';setTimeout(()=>{order.captain=captain.name;order.status='delivery';order.highlight=true;closeModal();renderOrders();renderDashboard();showToast(`تم تحويل ${order.id} إلى ${captain.name} وإرسال إشعار للزبون`);},3000)});
+}
+function openCityModal(countryId){
+  const country=state.countries.find(item=>item.id===countryId);
+  openModal(`<div class="modal-head"><div><p class="eyebrow orange">الدول والمدن</p><h3>إضافة مدينة في ${country.name}</h3><p class="muted">ستظهر المدينة ضمن المدن التجريبية للدولة.</p></div><button class="icon-btn modal-close">×</button></div><label style="display:block;color:var(--green);font-size:11px;font-weight:800;margin-top:13px">اسم المدينة<input id="city-name" placeholder="مثال: الخرطوم" /></label><div class="modal-actions"><button class="btn primary" id="save-city">إضافة المدينة</button><button class="btn secondary modal-close">إلغاء</button></div>`);
+  $('#save-city').addEventListener('click',()=>{const name=$('#city-name').value.trim();if(!name){showToast('اكتب اسم المدينة أولاً');return;}country.cities.push(name);closeModal();renderCountries();showToast(`تمت إضافة ${name} إلى ${country.name}`)});
+}
+function openCountryModal(){
+  openModal(`<div class="modal-head"><div><p class="eyebrow orange">التوسع الإقليمي</p><h3>إضافة دولة جديدة</h3><p class="muted">أضف الدولة كغير مفعلة إلى أن تجهز تشغيلها.</p></div><button class="icon-btn modal-close">×</button></div><div class="modal-grid"><label>اسم الدولة<input id="country-name" placeholder="اسم الدولة" /></label><label>رمز الدولة<input id="country-code" placeholder="XX" maxlength="2" dir="ltr" /></label><label>العملة<input id="country-currency" placeholder="XXX" maxlength="3" dir="ltr" /></label><label>العلم<input id="country-flag" placeholder="🌍" maxlength="2" /></label></div><div class="modal-actions"><button class="btn primary" id="save-country">إضافة الدولة</button><button class="btn secondary modal-close">إلغاء</button></div>`);
+  $('#save-country').addEventListener('click',()=>{const name=$('#country-name').value.trim();if(!name){showToast('اكتب اسم الدولة أولاً');return;}state.countries.push({id:`country-${Date.now()}`,flag:$('#country-flag').value.trim()||'🌍',name,code:$('#country-code').value.trim().toUpperCase()||'XX',currency:$('#country-currency').value.trim().toUpperCase()||'XXX',enabled:false,cities:[]});closeModal();renderCountries();showToast(`تمت إضافة ${name} كدولة غير مفعلة`)});
 }
 function openCaptainModal(id){
   const captain=state.captains.find(c=>c.id===id);
@@ -197,10 +229,12 @@ function bindDynamic(){
   $('#quick-generate').addEventListener('click',generateCode);$('#copy-quick-code').addEventListener('click',copyCode);$('#whatsapp-quick').addEventListener('click',whatsappCode);
   $('#add-captain-btn').addEventListener('click',()=>openCaptainModal());$('#add-restaurant-btn').addEventListener('click',()=>openRestaurantModal());$('#new-order-btn').addEventListener('click',()=>{const id=`ZF-${10483+state.orders.length}`;state.orders.unshift({id,customer:'زبون تجريبي',phone:'091 000 0000',restaurant:'مطعم النيلين',item:'فرخة كاملة مشوية',amount:25000,fee:4000,total:29000,payment:'كاش',captain:'غير مسند',status:'pending',time:'الآن',highlight:true});renderOrders();renderDashboard();showToast(`وصل طلب جديد ${id}`)});
   $('#fullscreen-map').addEventListener('click',()=>{$('#map-canvas').requestFullscreen?.()});$('#save-settings').addEventListener('click',()=>showToast('تم حفظ إعدادات التشغيل تجريبياً'));
+  $('#add-country-btn').addEventListener('click',openCountryModal);
   $$('.toggle').forEach(toggle=>toggle.addEventListener('click',()=>toggle.classList.toggle('on')));
 }
-function renderAll(){bindNavigation();bindDynamic();navigate(state.section);}
+function renderAll(){updateDateAndGreeting();bindNavigation();bindDynamic();navigate(state.section);}
 
 $('#login-form').addEventListener('submit',handleLogin);
 if(sessionStorage.getItem('zoolfast_admin_demo')==='1') enterApp();
 setInterval(tickMap,5000);
+setInterval(updateDateAndGreeting,60000);
